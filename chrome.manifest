@@ -1,0 +1,2 @@
+content tabby chrome/content/
+overlay chrome://browser/content/browser.xul chrome://tabby/content/sample.xul

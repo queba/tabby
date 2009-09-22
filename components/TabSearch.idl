@@ -1,0 +1,8 @@
+#include "nsIAutoCompleteSearch.idl"
+
+[scriptable, uuid(a9a434f0-a6a1-11de-8a39-0800200c9a66)]
+interface nsITabSearch : nsIAutoCompleteSearch
+{
+  string hello();
+};
+
