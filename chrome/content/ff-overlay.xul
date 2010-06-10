@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="chrome://tabby/skin/overlay.css" type="text/css"?>
+<!--<?xml-stylesheet href="chrome://tabby/skin/overlay.css" type="text/css"?>-->
 <!DOCTYPE overlay SYSTEM "chrome://tabby/locale/overlay.dtd">
 <overlay id="tabby-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
@@ -9,15 +9,25 @@
     <stringbundle id="tabby-strings" src="chrome://tabby/locale/overlay.properties"/>
   </stringbundleset>
 
+  <keyset id="mainKeyset">
+    <key id="tabby-toggle-toolbar" key="'" modifiers="control" oncommand="tabby.toggle_toolbar()"/>
+  </keyset>
+
+  <panel id="tabby-popup" type="autocomplete-richlistbox" />
+
   <window id="main-window">
     <vbox id="browser-bottombox" insertbefore="status-bar" style="border-top:1px solid #CCCCCC;">
-      <toolbar id="tabby-bar" insertbefore="status-bar">
+      <toolbar id="tabby-bar" insertbefore="status-bar" hidden="true">
         <hbox flex="1">
-          <textbox id="tabby-input" type="autocomplete" autocompletesearch="tabby" flex="5" autocompletepopup="richPopup" showcommentcolumn="true"/>
+          <textbox id="tabby-input" type="autocomplete"
+          autocompletesearch="tabby" flex="1"
+          showcommentcolumn="true" onblur="tabby.hide_toolbar()"
+          onkeypress="tabby.onKeyPress(event)"
+          autocompletepopup="tabby-popup" onchange="tabby.onChange(this)"
+          />
         </hbox>
       </toolbar>
     </vbox>
   </window>
-
 
 </overlay>

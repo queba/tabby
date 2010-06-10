@@ -7,13 +7,14 @@ const CONTRACT_ID = "@mozilla.org/autocomplete/search;1?name=tabby";
 // Implements nsIAutoCompleteResult
 function SimpleAutoCompleteResult(searchString, searchResult,
                                   defaultIndex, errorDescription,
-                                  results, comments) {
+                                  results, comments, images) {
   this._searchString = searchString;
   this._searchResult = searchResult;
   this._defaultIndex = defaultIndex;
   this._errorDescription = errorDescription;
   this._results = results;
   this._comments = comments;
+  this._images = images;
 }
 
 SimpleAutoCompleteResult.prototype = {
@@ -23,6 +24,7 @@ SimpleAutoCompleteResult.prototype = {
   _errorDescription: "",
   _results: [],
   _comments: [],
+  _images: [],
 
   /**
    * The original search string
@@ -95,7 +97,9 @@ SimpleAutoCompleteResult.prototype = {
    * The return value is expected to be an URI to the image to display
    */
   getImageAt : function (index) {
-    return "";
+    if (!this._images[index])
+        return null;
+    return this._images[index];
   },
 
   /**
@@ -138,16 +142,30 @@ SimpleAutoCompleteSearch.prototype = {
       var bb = mainWindow.getBrowser();
       var results = [];
       var comments = [];
+      var images = [];
       var num = bb.browsers.length;
+
+      // TODO prioritize results by remembering users' choices
+      // TODO Chinese pinyin support
+      var tokens = searchString.split(/\s+/);
+      var matchers = new Array(tokens.length);
+      for (var i = 0; i < tokens.length; i++) {
+          matchers[i] = new RegExp(tokens[i], "i");
+      }
       for (var i = 0; i < num; i++) {
           var b = bb.getBrowserAtIndex(i);
           var tab = bb.mTabContainer.childNodes[i];
-          results.push(tab.label);
-          comments.push(b.currentURI.spec);
+          var label = tab.label
+          var url = b.currentURI.spec;
+          if (this._match(matchers, label, url)) {
+              results.push((i+1) + " - " + label);
+              comments.push(url);
+              images.push(tab.image);
+          }
       }
       var newResult = new SimpleAutoCompleteResult(searchString,
-            Ci.nsIAutoCompleteResult.RESULT_SUCCESS, 0, "",
-            results, comments);
+            results.length == 0 ? Ci.nsIAutoCompleteResult.RESULT_NOMATCH : Ci.nsIAutoCompleteResult.RESULT_SUCCESS,
+            0, "", results, comments, images);
       listener.onSearchResult(this, newResult);
   },
 
@@ -155,6 +173,15 @@ SimpleAutoCompleteSearch.prototype = {
    * Stop an asynchronous search that is in progress
    */
   stopSearch: function() {
+  },
+
+  _match: function(matchers, label, url) {
+    for (var i = 0; i < matchers.length; i++) {
+        if (!matchers[i].test(label) && !matchers[i].test(url)) {
+            return false;
+        }
+    }
+    return true;
   },
     
   QueryInterface: function(aIID) {
