@@ -1,0 +1,8 @@
+<!ENTITY tabby.label "Your localized menuitem">
+<!ENTITY tabbyContext.label "Your Menuitem">
+<!ENTITY tabbyContext.accesskey "Y">
+<!ENTITY tabbyToolbarButton.label "Your Toolbar Button">
+<!ENTITY tabbyToolbarButton.tooltip "This is your toolbar button!">
+<!ENTITY tabbySidebar.label "Your Sidebar">
+<!ENTITY tabbyToolbar.name  "example">
+<!ENTITY tabbyToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &tabbyToolbar.name;">

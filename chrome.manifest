@@ -1,2 +1,5 @@
-content tabby chrome/content/
-overlay chrome://browser/content/browser.xul chrome://tabby/content/sample.xul
+content   tabby                 chrome/content/
+locale    tabby   en-US         chrome/locale/en-US/
+
+
+overlay   chrome://browser/content/browser.xul   chrome://tabby/content/ff-overlay.xul

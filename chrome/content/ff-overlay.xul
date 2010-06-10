@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://tabby/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://tabby/locale/overlay.dtd">
+<overlay id="tabby-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+  <!--<script src="ff-overlay.js"/>-->
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="tabby-strings" src="chrome://tabby/locale/overlay.properties"/>
+  </stringbundleset>
+
+  <window id="main-window">
+    <vbox id="browser-bottombox" insertbefore="status-bar" style="border-top:1px solid #CCCCCC;">
+      <toolbar id="tabby-bar" insertbefore="status-bar">
+        <hbox flex="1">
+          <textbox id="tabby-input" type="autocomplete" autocompletesearch="tabby" flex="5" autocompletepopup="richPopup" showcommentcolumn="true"/>
+        </hbox>
+      </toolbar>
+    </vbox>
+  </window>
+
+
+</overlay>

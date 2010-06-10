@@ -1,28 +1,20 @@
-<?xml version="1.0"?>
-
-<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>tabby@software.nju.edu.cn</em:id>
-    <em:version>1.0</em:version>
+    <em:id>tabby@qiuyin.name</em:id>
     <em:type>2</em:type>
-   
-    <!-- Target Application this extension can install into, 
-         with minimum and maximum supported versions. --> 
+    <em:name>Tabby</em:name>
+    <em:version>1.0</em:version>
+    <em:creator>Yin Qiu</em:creator>
+    <em:contributor></em:contributor>
+    <em:description>Locate your tabs quickly!</em:description>
+    <em:aboutURL>chrome://tabby/content/about.xul</em:aboutURL>
     <em:targetApplication>
       <Description>
-        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- Firefox -->
         <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>3.5.*</em:maxVersion>
+        <em:maxVersion>3.7a5pre</em:maxVersion>
       </Description>
     </em:targetApplication>
-   
-    <!-- Front End MetaData -->
-    <em:name>Tabby</em:name>
-    <em:description>Quickly locate your tabs!</em:description>
-    <em:creator>Yin QIU</em:creator>
-    <em:homepageURL>http://www.example.com/</em:homepageURL>
-  </Description>      
+  </Description>
 </RDF>
-
