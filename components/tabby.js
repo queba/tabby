@@ -130,8 +130,6 @@ SimpleAutoCompleteResult.prototype = {
    * The return value is expected to be an URI to the image to display
    */
   getImageAt : function (index) {
-    if (!this._images[index])
-        return null;
     return this._images[index];
   },
 
@@ -193,7 +191,7 @@ SimpleAutoCompleteSearch.prototype = {
           if (this._match(matchers, label, url)) {
               results.push((i+1) + " - " + label);
               comments.push(url);
-              images.push(tab.image);
+              images.push(tab.image ? tab.image : "chrome://mozapps/skin/places/defaultFavicon.png");
           }
       }
       var newResult = new SimpleAutoCompleteResult(searchString,
