@@ -55,6 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           onkeypress="tabby.onTextEntered(event)"
           autocompletepopup="tabby-popup"
           ontextentered="tabby.onTextEntered(this)"
+          ontextreverted="tabby.hide_toolbar()"
           />
         </hbox>
       </toolbar>
