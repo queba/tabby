@@ -33,7 +33,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <!--<?xml-stylesheet href="chrome://tabby/skin/overlay.css" type="text/css"?>-->
 <!DOCTYPE overlay SYSTEM "chrome://tabby/locale/overlay.dtd">
 <overlay id="tabby-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <!--<script src="tabbycontroller.js"/>-->
   <script src="overlay.js"/>
 
   <stringbundleset id="stringbundleset">
