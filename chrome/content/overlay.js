@@ -33,6 +33,8 @@ var tabby = {
     // initialization code
     this.initialized = true;
     this.strings = document.getElementById("tabby-strings");
+
+    input = document.getElementById("tabby-input");
   },
 
   onKeyPress: function(e) {
@@ -41,7 +43,7 @@ var tabby = {
     }
   },
 
-  onChange: function(obj) {
+  onTextEntered: function(obj) {
     var ctrl = obj.controller;
     if (ctrl.searchStatus == ctrl.STATUS_COMPLETE_MATCH) {
         var selected = obj.textValue;
