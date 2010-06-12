@@ -52,10 +52,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           <textbox id="tabby-input" type="autocomplete"
           autocompletesearch="tabby" flex="1"
           showcommentcolumn="true" onblur="tabby.hide_toolbar()"
-          onkeypress="tabby.onTextEntered(event)"
           autocompletepopup="tabby-popup"
           ontextentered="tabby.onTextEntered(this)"
           ontextreverted="tabby.hide_toolbar()"
+          completedefaultindex="true"
           />
         </hbox>
       </toolbar>

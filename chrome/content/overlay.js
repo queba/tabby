@@ -28,31 +28,41 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+var Ci = Components.interfaces;
+//var Cc = Components.classes;
+
 var tabby = {
+
   onLoad: function() {
     // initialization code
     this.initialized = true;
     this.strings = document.getElementById("tabby-strings");
-
-    input = document.getElementById("tabby-input");
   },
 
-  onKeyPress: function(e) {
-    if (e.keyCode == e.DOM_VK_ESCAPE) {
-        this.hide_toolbar();
-    }
-  },
-
-  onTextEntered: function(obj) {
-    var ctrl = obj.controller;
-    if (ctrl.searchStatus == ctrl.STATUS_COMPLETE_MATCH) {
-        var selected = obj.textValue;
+  onTextEntered: function(input) {
+    var ctrl = input.mController;
+    if (ctrl.searchStatus == Ci.nsIAutoCompleteController.STATUS_COMPLETE_MATCH) {
+        var selected = input.textValue;
         // FIXME this is really only a temporary hack...
-        var re = /\d+ - /;
-        if (re.test(selected)) {
+        if (!/^\d+ - /.test(selected)) {
+            // Use the first hit
+            selected = ctrl.getValueAt(0); 
+        }
+        if (selected) {
+            input.textValue = selected;
             var spacePos = selected.indexOf(" ");
-            var tabIndex = parseInt(selected.substr(0, spacePos));
-            gBrowser.mTabContainer.selectedIndex = tabIndex - 1;
+            var indexStr = selected.substr(0, spacePos);
+            var isNum = true;
+            for (var i = 0; i < indexStr.length; i++) {
+                if (indexStr.charAt(i) < '0' || indexStr.charAt(i) > '9') {
+                    isNum = false;
+                    break;
+                }
+            }
+            if (isNum) {
+                var tabIndex = parseInt(indexStr);
+                gBrowser.mTabContainer.selectedIndex = tabIndex - 1;
+            }
         }
     }
   },
