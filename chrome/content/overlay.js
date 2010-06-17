@@ -28,9 +28,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-var Ci = Components.interfaces;
-//var Cc = Components.classes;
-
 var tabby = {
 
   onLoad: function() {
@@ -41,7 +38,7 @@ var tabby = {
 
   onTextEntered: function(input) {
     var ctrl = input.mController;
-    if (ctrl.searchStatus == Ci.nsIAutoCompleteController.STATUS_COMPLETE_MATCH) {
+    if (ctrl.searchStatus == Components.interfaces.nsIAutoCompleteController.STATUS_COMPLETE_MATCH) {
         var selected = input.textValue;
         // FIXME this is really only a temporary hack...
         if (!/^\d+ - /.test(selected)) {
