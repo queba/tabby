@@ -190,7 +190,8 @@ TabbyAutoCompleteSearch.prototype = {
       var tokens = searchString.split(/\s+/);
       var matchers = new Array(tokens.length);
       for (var i = 0; i < tokens.length; i++) {
-          matchers[i] = new RegExp(tokens[i], "i");
+          var escaped_token = tokens[i].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+          matchers[i] = new RegExp(escaped_token, "i");
       }
       for (var i = 0; i < num; i++) {
           var b = bb.getBrowserAtIndex(i);
