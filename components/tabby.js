@@ -166,6 +166,17 @@ function TabbyAutoCompleteSearch() {
 }
 
 TabbyAutoCompleteSearch.prototype = {
+
+  _input: null,
+
+  set input(aInput) {
+    this._input = aInput;
+  },
+
+  get input() {
+    return this._input;
+  },
+
   /*
    * Search for a given string and notify a listener (either synchronously
    * or asynchronously) of the result

@@ -40,7 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <em:contributor></em:contributor>
     <em:description>Quickly locate your tabs! Hotkey: Ctrl-'</em:description>
     <em:iconURL>chrome://tabby/content/icon.png</em:iconURL>
-    <em:optionsURL>chrome://tabby/content/options.xul</em:optionsURL>
+    <!--<em:optionsURL>chrome://tabby/content/options.xul</em:optionsURL>-->
     <!--<em:aboutURL>chrome://tabby/content/about.xul</em:aboutURL>-->
     <em:targetApplication>
       <Description>
