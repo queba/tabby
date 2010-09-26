@@ -46,8 +46,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <panel id="tabby-popup" type="autocomplete-richlistbox" />
 
   <window id="main-window">
-    <vbox id="browser-bottombox" insertbefore="status-bar" style="border-top:1px solid #CCCCCC;">
-      <toolbar id="tabby-bar" insertbefore="status-bar" hidden="true">
+    <vbox id="browser-bottombox">
+      <toolbar id="tabby-bar" insertbefore="status-bar" hidden="true" fullscreentoolbar="true">
         <hbox flex="1">
           <textbox id="tabby-input" type="autocomplete"
           autocompletesearch="tabby" flex="1"
