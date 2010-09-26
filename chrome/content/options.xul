@@ -30,24 +30,13 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-  <Description about="urn:mozilla:install-manifest">
-    <em:id>tabby@qiuyin.name</em:id>
-    <em:type>2</em:type>
-    <em:name>Tabby</em:name>
-    <em:version>1.0.5</em:version>
-    <em:creator>Yin Qiu</em:creator>
-    <em:contributor></em:contributor>
-    <em:description>Quickly locate your tabs! Hotkey: Ctrl-'</em:description>
-    <em:iconURL>chrome://tabby/content/icon.png</em:iconURL>
-    <!--<em:optionsURL>chrome://tabby/content/options.xul</em:optionsURL>-->
-    <!--<em:aboutURL>chrome://tabby/content/about.xul</em:aboutURL>-->
-    <em:targetApplication>
-      <Description>
-        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- Firefox -->
-        <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>3.7a5pre</em:maxVersion>
-      </Description>
-    </em:targetApplication>
-  </Description>
-</RDF>
+<!DOCTYPE overlay SYSTEM "chrome://tabby/locale/options.dtd">
+<prefwindow id="tabby-prefs" title="Tabby Options"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <prefpane id="tabby-pane1" label="Tabby Settings">
+    <preferences>
+      <preference id="pref-fuzzy" name="extensions.tabby.fuzzy"/>
+    </preferences>
+    <checkbox label="Fuzzy match" checked="false" preference="pref-fuzzy"/>
+  </prefpane>
+</prefwindow>

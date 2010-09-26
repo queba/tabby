@@ -38,7 +38,7 @@ const CLASS_NAME = "Tab Name AutoComplete";
 const CONTRACT_ID = "@mozilla.org/autocomplete/search;1?name=tabby";
 
 // Implements nsIAutoCompleteResult
-function SimpleAutoCompleteResult(searchString, searchResult,
+function TabbyAutoCompleteResult(searchString, searchResult,
                                   defaultIndex, errorDescription,
                                   results, comments, images) {
   this._searchString = searchString;
@@ -50,7 +50,7 @@ function SimpleAutoCompleteResult(searchString, searchResult,
   this._images = images;
 }
 
-SimpleAutoCompleteResult.prototype = {
+TabbyAutoCompleteResult.prototype = {
   _searchString: "",
   _searchResult: 0,
   _defaultIndex: 0,
@@ -99,14 +99,14 @@ SimpleAutoCompleteResult.prototype = {
   },
 
   /**
-   * Get the value of the result at the given index
+   * Return the label of the tab
    */
   getValueAt: function(index) {
     return this._results[index];
   },
 
   /**
-   * Get the comment of the result at the given index
+   * Return the URI of the tab
    */
   getCommentAt: function(index) {
     return this._comments[index];
@@ -126,8 +126,7 @@ SimpleAutoCompleteResult.prototype = {
   },
 
   /**
-   * Get the image for the result at the given index
-   * The return value is expected to be an URI to the image to display
+   * Get the favicon of the tab at the specified index
    */
   getImageAt : function (index) {
     return this._images[index];
@@ -137,10 +136,24 @@ SimpleAutoCompleteResult.prototype = {
    * Remove the value at the given index from the autocomplete results.
    * If removeFromDb is set to true, the value should be removed from
    * persistent storage as well.
+   *
+   * This function also closes the specified tab
    */
   removeValueAt: function(index, removeFromDb) {
+                   /*
+                    * *not working yet*
+    var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                           .getService(Components.interfaces.nsIWindowMediator);
+    var mainWindow = wm.getMostRecentWindow("navigator:browser"); 
+    var bb = mainWindow.gBrowser;
+    var closing_tab = this._results[index];
+    var spacePos = closing_tab.indexOf(" ");
+    var tabIndex = parseInt(closing_tab.substr(0, spacePos));
+    bb.removeTab(bb.mTabContainer.getItemAtIndex(tabIndex - 1));
+
     this._results.splice(index, 1);
     this._comments.splice(index, 1);
+    */
   },
 
   QueryInterface: function(aIID) {
@@ -152,10 +165,21 @@ SimpleAutoCompleteResult.prototype = {
 
 
 // Implements nsIAutoCompleteSearch
-function SimpleAutoCompleteSearch() {
+function TabbyAutoCompleteSearch() {
 }
 
-SimpleAutoCompleteSearch.prototype = {
+TabbyAutoCompleteSearch.prototype = {
+
+  _input: null,
+
+  set input(aInput) {
+    this._input = aInput;
+  },
+
+  get input() {
+    return this._input;
+  },
+
   /*
    * Search for a given string and notify a listener (either synchronously
    * or asynchronously) of the result
@@ -166,7 +190,6 @@ SimpleAutoCompleteSearch.prototype = {
    * @param listener - A listener to notify when the search is complete
    */
   startSearch: function(searchString, searchParam, result, listener) {
-      //var bb = gBrowser;
       var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                              .getService(Components.interfaces.nsIWindowMediator);
       var mainWindow = wm.getMostRecentWindow("navigator:browser"); 
@@ -181,7 +204,8 @@ SimpleAutoCompleteSearch.prototype = {
       var tokens = searchString.split(/\s+/);
       var matchers = new Array(tokens.length);
       for (var i = 0; i < tokens.length; i++) {
-          matchers[i] = new RegExp(tokens[i], "i");
+          var escaped_token = tokens[i].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+          matchers[i] = new RegExp(escaped_token, "i");
       }
       for (var i = 0; i < num; i++) {
           var b = bb.getBrowserAtIndex(i);
@@ -194,7 +218,7 @@ SimpleAutoCompleteSearch.prototype = {
               images.push(tab.image ? tab.image : "chrome://mozapps/skin/places/defaultFavicon.png");
           }
       }
-      var newResult = new SimpleAutoCompleteResult(searchString,
+      var newResult = new TabbyAutoCompleteResult(searchString,
             results.length == 0 ? Ci.nsIAutoCompleteResult.RESULT_NOMATCH : Ci.nsIAutoCompleteResult.RESULT_SUCCESS,
             0, "", results, comments, images);
       listener.onSearchResult(this, newResult);
@@ -223,19 +247,19 @@ SimpleAutoCompleteSearch.prototype = {
 };
 
 // Factory
-var SimpleAutoCompleteSearchFactory = {
+var TabbyAutoCompleteSearchFactory = {
   singleton: null,
   createInstance: function (aOuter, aIID) {
     if (aOuter != null)
       throw Components.results.NS_ERROR_NO_AGGREGATION;
     if (this.singleton == null)
-      this.singleton = new SimpleAutoCompleteSearch();
+      this.singleton = new TabbyAutoCompleteSearch();
     return this.singleton.QueryInterface(aIID);
   }
 };
 
 // Module
-var SimpleAutoCompleteSearchModule = {
+var TabbyAutoCompleteSearchModule = {
   registerSelf: function(aCompMgr, aFileSpec, aLocation, aType) {
     aCompMgr = aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
     aCompMgr.registerFactoryLocation(CLASS_ID, CLASS_NAME, CONTRACT_ID, aFileSpec, aLocation, aType);
@@ -251,7 +275,7 @@ var SimpleAutoCompleteSearchModule = {
       throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
 
     if (aCID.equals(CLASS_ID))
-      return SimpleAutoCompleteSearchFactory;
+      return TabbyAutoCompleteSearchFactory;
 
     throw Components.results.NS_ERROR_NO_INTERFACE;
   },
@@ -260,4 +284,4 @@ var SimpleAutoCompleteSearchModule = {
 };
 
 // Module initialization
-function NSGetModule(aCompMgr, aFileSpec) { return SimpleAutoCompleteSearchModule; }
+function NSGetModule(aCompMgr, aFileSpec) { return TabbyAutoCompleteSearchModule; }

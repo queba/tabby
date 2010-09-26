@@ -43,8 +43,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <key id="tabby-toggle-toolbar" key="'" modifiers="control" oncommand="tabby.toggle_toolbar()"/>
   </keyset>
 
-  <panel id="tabby-popup" type="autocomplete-richlistbox" />
-
   <window id="main-window">
     <vbox id="browser-bottombox">
       <toolbar id="tabby-bar" insertbefore="status-bar" hidden="true" fullscreentoolbar="true">
@@ -52,7 +50,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           <textbox id="tabby-input" type="autocomplete"
           autocompletesearch="tabby" flex="1"
           showcommentcolumn="true" onblur="tabby.hide_toolbar()"
-          autocompletepopup="tabby-popup"
           ontextentered="tabby.onTextEntered(this)"
           ontextreverted="tabby.hide_toolbar()"
           completedefaultindex="true"
