@@ -45,8 +45,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   <window id="main-window">
     <vbox id="browser-bottombox">
-      <toolbar id="tabby-bar" insertbefore="status-bar" hidden="true" fullscreentoolbar="true">
-        <hbox flex="1">
+      <!--<toolbar id="tabby-bar" insertbefore="status-bar" hidden="true" fullscreentoolbar="true">-->
+        <hbox flex="1" id="tabby-bar" insertbefore="status-bar" hidden="true">
           <textbox id="tabby-input" type="autocomplete"
           autocompletesearch="tabby" flex="1"
           showcommentcolumn="true" onblur="tabby.hide_toolbar()"
@@ -55,7 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           completedefaultindex="true"
           />
         </hbox>
-      </toolbar>
+      <!--</toolbar>-->
     </vbox>
   </window>
 
